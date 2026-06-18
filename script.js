@@ -144,4 +144,35 @@
       counters.forEach(function (el) { co.observe(el); });
     }
   }
+
+  /* ======================================================================
+     3c. FAQ accordion (accessible, animated max-height)
+     ====================================================================== */
+  var faqItems = Array.prototype.slice.call(document.querySelectorAll(".faq-item"));
+  faqItems.forEach(function (item) {
+    var btn = item.querySelector(".faq-q");
+    var ans = item.querySelector(".faq-a");
+    if (!btn || !ans) return;
+    btn.addEventListener("click", function () {
+      var isOpen = item.classList.contains("open");
+      if (isOpen) {
+        item.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+        ans.style.maxHeight = "0px";
+      } else {
+        item.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+        ans.style.maxHeight = ans.scrollHeight + "px";
+      }
+    });
+  });
+  // Keep an open answer correctly sized on resize.
+  window.addEventListener("resize", function () {
+    faqItems.forEach(function (item) {
+      if (item.classList.contains("open")) {
+        var ans = item.querySelector(".faq-a");
+        if (ans) ans.style.maxHeight = ans.scrollHeight + "px";
+      }
+    });
+  });
 })();
