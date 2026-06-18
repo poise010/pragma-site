@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Pragma — script.js
+   Pragma - script.js
    ---------------------------------------------------------------------------
-   1. BOOKING LINK  — set this ONCE and every "Book" button updates.
+   1. BOOKING LINK  - set this ONCE and every "Book" button updates.
    2. Mobile menu, sticky-nav state, smooth scroll.
    3. Reveal-on-scroll + animated stat counters (reduced-motion safe).
    ========================================================================== */
@@ -9,11 +9,11 @@
   "use strict";
 
   /* ======================================================================
-     1. BOOKING LINK — single source of truth
+     1. BOOKING LINK - single source of truth
      ----------------------------------------------------------------------
      Paste your PUBLIC Calendly booking link below (the one clients use to
      pick a time, e.g. "https://calendly.com/your-name/consultation").
-     Do NOT use your calendly.com/app/... admin URL — that is your private
+     Do NOT use your calendly.com/app/... admin URL - that is your private
      dashboard and visitors cannot book from it.
      Every element with data-book on both pages will use this link.
      ====================================================================== */

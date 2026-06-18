@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Pragma — chat.js
+   Pragma - chat.js
    Self-contained DEMO chat widget. No backend, no account, no tracking.
    It shows prospects what an AI intake assistant feels like, using simple
    keyword matching with canned, on-brand replies.
@@ -26,61 +26,69 @@
   /* ── Canned knowledge base (keyword -> reply) ───────────────────────── */
   var KB = [
     {
-      keys: ["price", "cost", "pricing", "how much", "fee", "expensive", "afford"],
-      reply: "Pragma is set up for your firm, so pricing depends on which services you use. Most firms start with the AI receptionist and follow-up. The fastest way to get a clear number is a quick consultation. Want me to grab a time?",
+      keys: ["price", "cost", "pricing", "how much", "fee", "expensive", "afford", "budget"],
+      reply: "Most projects start at $1,200 for a focused site and $2,400 for a complete site with AI systems. After a short call we send a fixed quote, so you know the full price before anything begins. Want to set up that call?",
       book: true
     },
     {
-      keys: ["immigration", "visa", "green card", "asylum", "citizenship", "uscis"],
-      reply: "Yes, Pragma works with immigration firms. The receptionist can answer in multiple languages, qualify the matter type, and book consultations 24/7, so leads who call after hours still get a fast, helpful response."
+      keys: ["how long", "timeline", "time", "fast", "when", "weeks", "quick"],
+      reply: "A Launch site is usually ready in two to three weeks. Larger Growth and Scale projects take a bit longer, and we give you a clear timeline up front."
     },
     {
-      keys: ["injury", "personal injury", "accident", "car crash", "slip", "malpractice"],
-      reply: "Absolutely. For personal injury firms, speed is everything. Pragma answers instantly, captures the details of the incident, and books the consultation before the caller reaches out to another firm."
+      keys: ["website", "web design", "design", "redesign", "rebuild", "site"],
+      reply: "We design fast, mobile-first websites built around your customers and your goals, with the copy written for you. The aim is simple: turn more visitors into booked appointments."
     },
     {
-      keys: ["voice", "receptionist", "phone", "call", "answer"],
-      reply: "The AI Voice Receptionist answers every call 24/7, qualifies the lead, handles common questions, and books the consultation on the spot. You also get a clear summary after each call."
+      keys: ["seo", "google", "search", "rank", "found", "traffic"],
+      reply: "Our SEO work helps you get found by people already searching for what you offer in your area. We optimize your site and your Google Business Profile so nearby customers find you first."
     },
     {
-      keys: ["chat", "chatbot", "website", "web", "bot"],
-      reply: "This is a quick demo of what a website chatbot can do. A live one engages every visitor instantly, answers questions, and turns quiet web traffic into booked consultations."
+      keys: ["chat", "chatbot", "ai chat", "assistant", "bot"],
+      reply: "This is a quick demo of the AI chat assistant we build. A live one is trained on your business, answers questions in your voice, and books appointments around the clock."
     },
     {
-      keys: ["follow", "followup", "follow-up", "text", "email", "remind", "reminder"],
-      reply: "Automated follow-up sends timed texts, emails, and reminders so leads stay warm and actually show up to the consultations they book. Fewer no-shows, more signed cases."
+      keys: ["form", "intake", "lead", "crm", "contact form"],
+      reply: "We build smart intake forms that collect exactly what you need from a new lead and route it straight to your inbox or CRM, so follow-up is fast and organized."
     },
     {
-      keys: ["intake", "qualify", "form", "information", "details"],
-      reply: "AI Lead Intake gathers and qualifies client details before an attorney ever picks up, so your team only spends time on real cases and starts every call already knowing the matter."
+      keys: ["convert", "conversion", "cro", "optimize", "more customers"],
+      reply: "Conversion optimization means we test and refine your pages so more of the visitors you already get become paying customers. Small improvements that add up to real revenue."
     },
     {
-      keys: ["hours", "open", "after hours", "weekend", "night", "24", "available"],
-      reply: "Pragma runs around the clock, including nights, weekends, and holidays. That is exactly when many injured or worried clients reach out, and when most firms miss the call."
+      keys: ["dentist", "lawyer", "law", "med spa", "spa", "contractor", "roofer", "plumber", "industry", "business type"],
+      reply: "Yes. We build for dentists, law firms, med spas, contractors, professional services, and local businesses. The approach is the same: a credible site that turns visitors into customers."
     },
     {
-      keys: ["book", "consultation", "appointment", "schedule", "meeting", "demo", "talk", "call you", "get started", "start"],
-      reply: "Great. A free 30-minute consultation is the best next step. No pressure, no obligation.",
+      keys: ["existing", "already have", "current site", "old site", "wordpress", "wix", "squarespace"],
+      reply: "We will review your current site, keep what is working, and rebuild the rest. A lot of clients come to us for a refresh that finally turns their traffic into customers."
+    },
+    {
+      keys: ["content", "copy", "write", "words", "text", "photos"],
+      reply: "You do not have to write anything. We handle the copy based on our conversation and what works in your industry, and you approve it all before launch."
+    },
+    {
+      keys: ["book", "consultation", "appointment", "schedule", "meeting", "demo", "talk", "call", "get started", "start"],
+      reply: "Great. A free 30-minute consultation is the best next step. We will look at your business and give you a clear plan and price. No pressure.",
       book: true
     },
     {
-      keys: ["human", "person", "agent", "real", "speak to someone"],
-      reply: "You are chatting with a demo assistant right now. To speak with the Pragma team, the quickest path is to book a short consultation and we will call you.",
+      keys: ["human", "person", "agent", "real", "speak to someone", "team"],
+      reply: "You are chatting with a demo assistant right now. The quickest way to reach the Pragma team is to book a short consultation, and we will take it from there.",
       book: true
     },
     {
       keys: ["hi", "hello", "hey", "good morning", "good afternoon"],
-      reply: "Hi there. I can tell you how Pragma helps law firms capture more leads and book more consultations. What would you like to know?"
+      reply: "Hi there. I can tell you how Pragma helps local businesses get more customers with a better website. What would you like to know?"
     },
     {
-      keys: ["thanks", "thank you", "appreciate", "great", "awesome", "cool"],
-      reply: "Happy to help. Whenever you are ready, you can book a free consultation and we will map this out for your firm."
+      keys: ["thanks", "thank you", "appreciate", "great", "awesome", "cool", "perfect"],
+      reply: "Happy to help. Whenever you are ready, book a free consultation and we will map this out for your business."
     }
   ];
 
-  var FALLBACK = "Good question. I am a quick demo, so the team can answer that best on a short call. In the meantime, I can tell you about the AI receptionist, lead intake, website chat, follow-up, or scheduling. Or would you like to book a consultation?";
+  var FALLBACK = "Good question. I am a quick demo, so the team can answer that best on a short call. In the meantime, I can tell you about our websites, SEO, AI chat, intake forms, or pricing. Or would you like to book a consultation?";
 
-  var GREETING = "Hi, I am Pragma's assistant. I can show you how we help immigration and personal injury firms answer every lead and book more consultations. Ask me anything, or pick an option below.";
+  var GREETING = "Hi, I am Pragma's assistant. I can show you how we help local businesses get more customers with a better website. Ask me anything, or pick an option below.";
 
   var QUICK = [
     "How does it work?",
@@ -126,7 +134,7 @@
         '<input id="chatField" type="text" autocomplete="off" placeholder="Type your question..." aria-label="Type your message" />' +
         '<button type="submit" aria-label="Send message">' + ICON_SEND + '</button>' +
       '</form>' +
-      '<p class="chat-disclaimer">Demo assistant. For legal advice, please book a consultation.</p>';
+      '<p class="chat-disclaimer">Demo assistant. Book a call for a tailored quote.</p>';
 
     document.body.appendChild(panel);
     document.body.appendChild(launcher);
