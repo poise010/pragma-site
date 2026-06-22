@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Pragma - script.js
+   Winograd - script.js
    ---------------------------------------------------------------------------
    1. BOOKING LINK  - set this ONCE and every "Book" button updates.
    2. Mobile menu, sticky-nav state, smooth scroll.
@@ -32,7 +32,7 @@
         el.setAttribute("href", "#");
         el.addEventListener("click", function (e) {
           e.preventDefault();
-          console.warn("Pragma: set BOOKING_URL in script.js to enable booking buttons.");
+          console.warn("Winograd: set BOOKING_URL in script.js to enable booking buttons.");
         });
       }
     });

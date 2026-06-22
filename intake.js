@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Pragma - intake.js
+   Winograd - intake.js
    Multi-step project intake form. Opens as a full-screen modal.
 
    Setup:
@@ -217,16 +217,10 @@
         '<div class="intake-top">',
           '<div class="intake-branding">',
             '<svg class="logo-mark" viewBox="0 0 40 40" width="22" height="22" fill="none" aria-hidden="true">',
-              '<g transform="translate(20,20)" stroke="#f3f4f6" stroke-width="1.7" fill="none">',
-                '<circle r="17"/>',
-                '<ellipse rx="17" ry="6.5"/>',
-                '<ellipse rx="17" ry="6.5" transform="rotate(36)"/>',
-                '<ellipse rx="17" ry="6.5" transform="rotate(72)"/>',
-                '<ellipse rx="17" ry="6.5" transform="rotate(108)"/>',
-                '<ellipse rx="17" ry="6.5" transform="rotate(144)"/>',
-              "</g>",
+              '<path d="M18.5 13 L18.2 28 C18.1 30 16.5 31 14 30.5 C10 29.6 8 26 8 21.5 C8 16.5 13 13 18.5 13 Z" fill="#1d7df5"/>',
+                '<path d="M23 7 C27 8 30 13 30 18 C30 23 28.5 27.5 26 30 C24.5 31.4 22.5 31.6 21.3 30.5 C20.6 29.8 20.4 28.5 20.5 27 C20.8 22 21 13 23 7 Z" fill="#f15a35"/>',
             "</svg>",
-            '<span class="intake-brand-name">Pragma</span>',
+            '<span class="intake-brand-name">Winograd</span>',
           "</div>",
           '<div class="intake-progress">',
             '<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>',
@@ -378,7 +372,7 @@
       }
     });
 
-    try { localStorage.setItem("pragmaIntake", JSON.stringify(data)); } catch (e) {}
+    try { localStorage.setItem("winogradIntake", JSON.stringify(data)); } catch (e) {}
 
     setTimeout(function () {
       window.location.href = (STRIPE_URL && STRIPE_URL !== "#") ? STRIPE_URL : "success.html";

@@ -1,6 +1,6 @@
-# Pragma
+# Winograd
 
-Marketing site for **Pragma**, an AI client-capture automation agency for
+Marketing site for **Winograd**, an AI client-capture automation agency for
 immigration and personal injury law firms. Answer every lead, respond
 instantly, and book more consultations 24/7.
 
