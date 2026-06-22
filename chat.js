@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Pragma - chat.js
+   Winograd - chat.js
    Self-contained DEMO chat widget. No backend, no account, no tracking.
    It shows prospects what an AI intake assistant feels like, using simple
    keyword matching with canned, on-brand replies.
@@ -73,12 +73,12 @@
     },
     {
       keys: ["human", "person", "agent", "real", "speak to someone", "team"],
-      reply: "You are chatting with a demo assistant right now. The quickest way to reach the Pragma team is to book a short consultation, and we will take it from there.",
+      reply: "You are chatting with a demo assistant right now. The quickest way to reach the Winograd team is to book a short consultation, and we will take it from there.",
       book: true
     },
     {
       keys: ["hi", "hello", "hey", "good morning", "good afternoon"],
-      reply: "Hi there. I can tell you how Pragma helps local businesses get more customers with a better website. What would you like to know?"
+      reply: "Hi there. I can tell you how Winograd helps local businesses get more customers with a better website. What would you like to know?"
     },
     {
       keys: ["thanks", "thank you", "appreciate", "great", "awesome", "cool", "perfect"],
@@ -88,7 +88,7 @@
 
   var FALLBACK = "Good question. I am a quick demo, so the team can answer that best on a short call. In the meantime, I can tell you about our websites, SEO, AI chat, intake forms, or pricing. Or would you like to book a consultation?";
 
-  var GREETING = "Hi, I am Pragma's assistant. I can show you how we help local businesses get more customers with a better website. Ask me anything, or pick an option below.";
+  var GREETING = "Hi, I am Winograd's assistant. I can show you how we help local businesses get more customers with a better website. Ask me anything, or pick an option below.";
 
   var QUICK = [
     "How does it work?",
@@ -120,13 +120,13 @@
       '<span class="nudge" aria-hidden="true"></span>';
 
     var panel = el("div", "chat-panel");
-    panel.id = "pragmaChat";
+    panel.id = "winogradChat";
     panel.setAttribute("role", "dialog");
-    panel.setAttribute("aria-label", "Pragma chat");
+    panel.setAttribute("aria-label", "Winograd chat");
     panel.innerHTML =
       '<div class="chat-header">' +
         '<div class="avatar">' + ICON_BOT + '</div>' +
-        '<div class="meta"><strong>Pragma Assistant</strong><span>Online now</span></div>' +
+        '<div class="meta"><strong>Winograd Assistant</strong><span>Online now</span></div>' +
       '</div>' +
       '<div class="chat-log" id="chatLog" aria-live="polite"></div>' +
       '<div class="chat-quick" id="chatQuick"></div>' +

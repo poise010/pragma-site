@@ -1,4 +1,4 @@
-# Design System: Pragma
+# Design System: Winograd
 
 Premium web-design agency for small and medium businesses (dentists, law firms,
 med spas, contractors, professional and local services). The buyer is a
@@ -24,7 +24,8 @@ loud or gimmicky.
 - **Mute** (#7b8190) tertiary text, captions
 - **Line** (#e7e9ee) hairline borders on light
 - **Cobalt** (#2f54e6) the single accent: CTAs, links, active states, focus rings. Used FLAT, never as a neon glow. Saturation kept in check.
-- **Navy** (#1a2d5a) committed brand depth (logo), used for gradients and the orbital mark
+- **Navy** (#1a2d5a) committed brand depth, used for gradients and dark sections
+- **Brand mark** the two-tone leaf logo pairs a bright blue (#1d7df5) with a warm coral (#f15a35); reserved for the logo only, not used elsewhere as accents
 - On dark: text #eef1f7, soft #aab3c6, faint #6f7894, hairline rgba(255,255,255,.10)
 - **Signal Green** (#2fbf71) reserved strictly for genuine "live/positive" status dots, nothing decorative
 
