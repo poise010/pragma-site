@@ -23,6 +23,9 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Ambient depth field (decorative, monochrome, drifts with scroll) -->
+  <div class="fx-field" aria-hidden="true"></div>
+
   <header class="nav" id="nav">
     <div class="container nav-inner">
       <a href="index.html" class="logo" aria-label="Winograd home">
@@ -62,7 +65,7 @@
             <path d="M14 24l7 7 13-13" stroke="#f3f4f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1>Welcome to Winograd.</h1>
+        <h1 data-split>Welcome to Winograd.</h1>
         <p>Your project is confirmed. We have everything we need to get started. Here is what happens next.</p>
       </div>
     </section>
@@ -148,5 +151,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="parallax.js"></script>
 </body>
 </html>

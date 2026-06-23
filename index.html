@@ -25,6 +25,9 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Ambient depth field (decorative, monochrome, drifts with scroll) -->
+  <div class="fx-field" aria-hidden="true"></div>
+
   <!-- ============================= NAV ============================= -->
   <header class="nav" id="nav">
     <div class="container nav-inner">
@@ -61,10 +64,16 @@
   <main id="main">
     <!-- ============================= HERO ============================= -->
     <section class="hero">
+      <div class="hero-depth" aria-hidden="true">
+        <div class="fx-shape fx-ring fx-ring-1" data-px="0.06" data-float="9" data-float-speed="0.4"></div>
+        <div class="fx-shape fx-ring fx-ring-2" data-px="0.12" data-float="12" data-float-speed="0.5"></div>
+        <div class="fx-shape fx-tile" data-px="0.18" data-float="16" data-float-speed="0.7"></div>
+        <div class="fx-shape fx-dots" data-px="0.1" data-float="10" data-float-speed="0.55"></div>
+      </div>
       <div class="container hero-grid">
         <div class="hero-copy" data-reveal>
           <span class="hero-tag"><span class="dot"></span> Web design and AI customer systems</span>
-          <h1 class="hero-title">A website that brings you more customers.</h1>
+          <h1 class="hero-title" data-split>A website that brings you more customers.</h1>
           <p class="hero-sub">
             Winograd builds fast, credible websites and AI systems that turn
             visitors into booked appointments. You get more leads and spend
@@ -85,7 +94,7 @@
         </div>
 
         <div class="hero-visual" data-reveal style="--reveal-delay:120ms">
-          <div class="hero-panel" aria-hidden="true">
+          <div class="hero-panel" aria-hidden="true" data-px="-0.05" data-float="7" data-float-speed="0.45">
             <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle class="ring" cx="100" cy="100" r="92"/>
               <circle class="ring" cx="100" cy="100" r="66"/>
@@ -368,6 +377,7 @@
   <!-- Demo chat widget (self-contained, bottom-right). Swap for a real provider
        by removing chat.js below and pasting the provider snippet here. -->
   <script src="script.js"></script>
+  <script src="parallax.js"></script>
   <script src="chat.js"></script>
   <script src="intake.js"></script>
 </body>

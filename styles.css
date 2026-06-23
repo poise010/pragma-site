@@ -379,6 +379,101 @@ strong { font-weight: 600; color: var(--ink); }
 @media (min-width: 1024px) { .outcomes-list { gap: 0 64px; } }
 
 /* ==========================================================================
+   CINEMATIC PARALLAX LAYER
+   Additive depth + motion on top of the existing flat design.
+   Stays in-identity: monochrome only, transform/opacity, no glow, no purple.
+   Fully gated behind prefers-reduced-motion; dampened on small screens.
+   ========================================================================== */
+
+/* keep page content above the fixed ambient field */
+main, .footer { position: relative; z-index: 1; }
+
+/* Ambient depth field: fixed monochrome light that drifts with scroll */
+.fx-field {
+  position: fixed; inset: -12vh -12vw; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(36vw 36vw at 24% 16%, rgba(255,255,255,0.055), transparent 60%),
+    radial-gradient(28vw 28vw at 84% 10%, rgba(255,255,255,0.035), transparent 62%),
+    radial-gradient(48vw 48vw at 72% 92%, rgba(255,255,255,0.03), transparent 64%);
+  transform: translate3d(0, calc(var(--fx-scroll, 0) * -36px), 0);
+  will-change: transform;
+}
+
+/* Hero depth: abstract monochrome shapes living behind the copy */
+.hero-grid { z-index: 1; }
+.hero-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.fx-shape { position: absolute; will-change: transform; }
+.fx-ring { border: 1px solid var(--line-2); border-radius: 50%; }
+.fx-ring-1 { width: 560px; height: 560px; top: -160px; right: -180px; }
+.fx-ring-2 { width: 320px; height: 320px; bottom: -120px; left: -110px; border-color: var(--line); }
+.fx-tile {
+  width: 116px; height: 116px; top: 16%; right: 6%;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-2);
+}
+.fx-tile::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background-image:
+    linear-gradient(var(--line-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+  background-size: 24px 24px; opacity: 0.7;
+}
+.fx-dots {
+  width: 130px; height: 90px; bottom: 14%; left: 4%;
+  background-image: radial-gradient(rgba(255,255,255,0.20) 1.4px, transparent 1.6px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 78%);
+  mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 78%);
+}
+
+/* Enhanced reveal: opacity + rise (was opacity only) */
+.js [data-reveal] {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .7s var(--ease), transform .8s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* Staggered cascade inside known groups */
+.outcomes-list .outcome:nth-child(2) { --reveal-delay: 70ms; }
+.outcomes-list .outcome:nth-child(3) { --reveal-delay: 140ms; }
+.outcomes-list .outcome:nth-child(4) { --reveal-delay: 210ms; }
+.bento .svc:nth-child(2) { --reveal-delay: 70ms; }
+.bento .svc:nth-child(3) { --reveal-delay: 140ms; }
+.bento .svc:nth-child(4) { --reveal-delay: 90ms; }
+.bento .svc:nth-child(5) { --reveal-delay: 160ms; }
+.plans .plan:nth-child(2) { --reveal-delay: 90ms; }
+.plans .plan:nth-child(3) { --reveal-delay: 180ms; }
+.process-grid .step:nth-child(2) { --reveal-delay: 90ms; }
+.process-grid .step:nth-child(3) { --reveal-delay: 180ms; }
+
+/* Staggered text: hero headline rises word-by-word from a clip mask */
+[data-split] .word {
+  display: inline-block; overflow: hidden; vertical-align: top;
+  padding-bottom: 0.16em; margin-bottom: -0.16em; /* room for descenders, no layout shift */
+}
+[data-split] .word > span {
+  display: inline-block; transform: translateY(118%);
+  transition: transform .9s var(--ease); transition-delay: var(--d, 0ms);
+}
+[data-split].is-revealed .word > span { transform: none; }
+
+/* Section visuals lift gently as they pass (parallax handled in JS) */
+.hero-panel, .svc-panel { will-change: transform; }
+
+@media (max-width: 600px) {
+  .fx-ring-1, .fx-dots { display: none; }
+  .fx-tile { right: 4%; top: 8%; opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-field { transform: none; }
+  .hero-depth { display: none; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  [data-split] .word > span { transform: none; transition: none; }
+  .hero-panel, .svc-panel { will-change: auto; }
+}
+
+/* ==========================================================================
    DEMO CHAT WIDGET (monochrome) - used by chat.js
    ========================================================================== */
 .chat-launcher {
