@@ -722,11 +722,11 @@ main, .footer { position: relative; z-index: 1; }
 
 /* ==========================================================================
    PRODUCTS GALLERY
-   Standalone products (independent of a website build), shown as a premium
-   card gallery. Same dark monochrome identity, hairline frames, mono price
-   tags, staggered reveal + restrained hover lift.
    ========================================================================== */
 .gallery { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+/* 3-card layout: single row on desktop, stacked on mobile */
+@media (min-width: 900px) { .gallery-3 { grid-template-columns: repeat(3, 1fr); } }
 
 .product {
   position: relative; display: flex; flex-direction: column;
@@ -738,7 +738,7 @@ main, .footer { position: relative; z-index: 1; }
 .product.is-featured { border-color: var(--line-3); }
 
 .product-frame {
-  position: relative; aspect-ratio: 16 / 8; background: var(--bg);
+  position: relative; aspect-ratio: 16 / 6; background: var(--bg);
   border-bottom: 1px solid var(--line); display: grid; place-items: center; overflow: hidden;
 }
 .product-frame::after {
@@ -749,11 +749,11 @@ main, .footer { position: relative; z-index: 1; }
   mask-image: radial-gradient(72% 82% at 50% 50%, #000, transparent 80%);
 }
 .product-emblem {
-  position: relative; z-index: 1; width: 60px; height: 60px; display: grid; place-items: center;
+  position: relative; z-index: 1; width: 56px; height: 56px; display: grid; place-items: center;
   border-radius: var(--r); background: var(--bg-2); border: 1px solid var(--line); color: var(--ink);
   will-change: transform;
 }
-.product-emblem svg { width: 28px; height: 28px; }
+.product-emblem svg { width: 26px; height: 26px; }
 
 .product-badge {
   position: absolute; top: 16px; right: 16px; z-index: 2;
@@ -762,26 +762,24 @@ main, .footer { position: relative; z-index: 1; }
 }
 
 .product-body { display: flex; flex-direction: column; flex: 1; padding: 24px 24px 26px; }
-.product-tagline { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); margin-bottom: 12px; }
 .product-name { font-size: 1.26rem; letter-spacing: -0.02em; color: var(--white); }
-.product-desc { margin-top: 11px; color: var(--soft); font-size: 0.97rem; flex: 1; }
-.product-tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 7px; }
-.product-tags span { font-family: var(--mono); font-size: 11.5px; color: var(--soft); background: var(--bg-3); border: 1px solid var(--line); border-radius: var(--r-pill); padding: 5px 11px; }
+.product-desc { margin-top: 10px; color: var(--soft); font-size: 0.97rem; }
+
+/* Feature list inside product card */
+.product-feats { margin-top: 18px; display: grid; gap: 8px; flex: 1; }
+.product-feats li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.94rem; color: var(--ink); }
+.product-feats .ck { width: 18px; height: 18px; flex-shrink: 0; display: grid; place-items: center; color: var(--soft); margin-top: 2px; }
+.product-feats .ck svg { width: 13px; height: 13px; }
+
 .product-foot { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line-2); display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; }
-.product-price { font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--white); line-height: 1; }
-.product-price .from { display: block; font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0; color: var(--faint); margin-bottom: 6px; }
-.product-price .per { font-size: 0.8rem; font-weight: 500; color: var(--faint); letter-spacing: 0; }
+.product-price { font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--white); line-height: 1; margin: 0; }
+.product-fee { font-family: var(--mono); font-size: 11px; color: var(--faint); margin: 5px 0 0; letter-spacing: 0.02em; }
 .product-foot .btn { flex-shrink: 0; }
 .products-note { text-align: center; margin-top: 28px; font-size: 0.95rem; color: var(--faint); }
 
-@media (min-width: 680px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
-
-.gallery .product:nth-child(2) { --reveal-delay: 70ms; }
-.gallery .product:nth-child(3) { --reveal-delay: 140ms; }
-.gallery .product:nth-child(4) { --reveal-delay: 60ms; }
-.gallery .product:nth-child(5) { --reveal-delay: 130ms; }
-.gallery .product:nth-child(6) { --reveal-delay: 200ms; }
+/* Stagger for 3 cards */
+.gallery .product:nth-child(2) { --reveal-delay: 90ms; }
+.gallery .product:nth-child(3) { --reveal-delay: 180ms; }
 
 @media (prefers-reduced-motion: reduce) {
   .product:hover { transform: none; }
