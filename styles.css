@@ -267,11 +267,11 @@ strong { font-weight: 600; color: var(--ink); }
 .plan-price { margin-top: 16px; font-family: var(--display); font-weight: 700; font-size: 2.5rem; letter-spacing: -0.03em; color: var(--white); line-height: 1; }
 .plan-price .from { font-family: var(--sans); font-size: 0.82rem; font-weight: 500; color: var(--faint); display: block; margin-bottom: 7px; letter-spacing: 0; text-transform: none; }
 .plan-desc { margin-top: 16px; color: var(--soft); font-size: 0.97rem; }
-.plan-list { margin-top: 26px; display: grid; gap: 13px; flex: 1; }
-.plan-list li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; font-size: 0.97rem; color: var(--ink); }
-.plan-list .ck { width: 20px; height: 20px; flex-shrink: 0; display: grid; place-items: center; color: var(--ink); margin-top: 1px; }
-.plan-list .ck svg { width: 16px; height: 16px; }
-.plan .btn { margin-top: 30px; width: 100%; }
+.plan-list { margin-top: 22px; display: grid; gap: 9px; flex: 1; }
+.plan-list li { display: grid; grid-template-columns: auto 1fr; gap: 11px; align-items: start; font-size: 0.96rem; line-height: 1.4; color: var(--ink); }
+.plan-list .ck { width: 19px; height: 19px; flex-shrink: 0; display: grid; place-items: center; color: var(--ink); margin-top: 1px; }
+.plan-list .ck svg { width: 15px; height: 15px; }
+.plan .btn { margin-top: 24px; width: 100%; }
 .plans-note { text-align: center; margin-top: 28px; font-size: 0.95rem; color: var(--faint); }
 
 /* ==========================================================================
@@ -377,6 +377,101 @@ strong { font-weight: 600; color: var(--ink); }
   .footer-cols { grid-template-columns: repeat(3, 1fr); }
 }
 @media (min-width: 1024px) { .outcomes-list { gap: 0 64px; } }
+
+/* ==========================================================================
+   CINEMATIC PARALLAX LAYER
+   Additive depth + motion on top of the existing flat design.
+   Stays in-identity: monochrome only, transform/opacity, no glow, no purple.
+   Fully gated behind prefers-reduced-motion; dampened on small screens.
+   ========================================================================== */
+
+/* keep page content above the fixed ambient field */
+main, .footer { position: relative; z-index: 1; }
+
+/* Ambient depth field: fixed monochrome light that drifts with scroll */
+.fx-field {
+  position: fixed; inset: -12vh -12vw; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(36vw 36vw at 24% 16%, rgba(255,255,255,0.055), transparent 60%),
+    radial-gradient(28vw 28vw at 84% 10%, rgba(255,255,255,0.035), transparent 62%),
+    radial-gradient(48vw 48vw at 72% 92%, rgba(255,255,255,0.03), transparent 64%);
+  transform: translate3d(0, calc(var(--fx-scroll, 0) * -36px), 0);
+  will-change: transform;
+}
+
+/* Hero depth: abstract monochrome shapes living behind the copy */
+.hero-grid { z-index: 1; }
+.hero-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.fx-shape { position: absolute; will-change: transform; }
+.fx-ring { border: 1px solid var(--line-2); border-radius: 50%; }
+.fx-ring-1 { width: 560px; height: 560px; top: -160px; right: -180px; }
+.fx-ring-2 { width: 320px; height: 320px; bottom: -120px; left: -110px; border-color: var(--line); }
+.fx-tile {
+  width: 116px; height: 116px; top: 16%; right: 6%;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg-2);
+}
+.fx-tile::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background-image:
+    linear-gradient(var(--line-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+  background-size: 24px 24px; opacity: 0.7;
+}
+.fx-dots {
+  width: 130px; height: 90px; bottom: 14%; left: 4%;
+  background-image: radial-gradient(rgba(255,255,255,0.20) 1.4px, transparent 1.6px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 78%);
+  mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 78%);
+}
+
+/* Enhanced reveal: opacity + rise (was opacity only) */
+.js [data-reveal] {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .7s var(--ease), transform .8s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* Staggered cascade inside known groups */
+.outcomes-list .outcome:nth-child(2) { --reveal-delay: 70ms; }
+.outcomes-list .outcome:nth-child(3) { --reveal-delay: 140ms; }
+.outcomes-list .outcome:nth-child(4) { --reveal-delay: 210ms; }
+.bento .svc:nth-child(2) { --reveal-delay: 70ms; }
+.bento .svc:nth-child(3) { --reveal-delay: 140ms; }
+.bento .svc:nth-child(4) { --reveal-delay: 90ms; }
+.bento .svc:nth-child(5) { --reveal-delay: 160ms; }
+.plans .plan:nth-child(2) { --reveal-delay: 90ms; }
+.plans .plan:nth-child(3) { --reveal-delay: 180ms; }
+.process-grid .step:nth-child(2) { --reveal-delay: 90ms; }
+.process-grid .step:nth-child(3) { --reveal-delay: 180ms; }
+
+/* Staggered text: hero headline rises word-by-word from a clip mask */
+[data-split] .word {
+  display: inline-block; overflow: hidden; vertical-align: top;
+  padding-bottom: 0.16em; margin-bottom: -0.16em; /* room for descenders, no layout shift */
+}
+[data-split] .word > span {
+  display: inline-block; transform: translateY(118%);
+  transition: transform .9s var(--ease); transition-delay: var(--d, 0ms);
+}
+[data-split].is-revealed .word > span { transform: none; }
+
+/* Section visuals lift gently as they pass (parallax handled in JS) */
+.hero-panel, .svc-panel { will-change: transform; }
+
+@media (max-width: 600px) {
+  .fx-ring-1, .fx-dots { display: none; }
+  .fx-tile { right: 4%; top: 8%; opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-field { transform: none; }
+  .hero-depth { display: none; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  [data-split] .word > span { transform: none; transition: none; }
+  .hero-panel, .svc-panel { will-change: auto; }
+}
 
 /* ==========================================================================
    DEMO CHAT WIDGET (monochrome) - used by chat.js
@@ -623,4 +718,70 @@ strong { font-weight: 600; color: var(--ink); }
   .form-check-group { grid-template-columns: 1fr; }
   .intake-progress { max-width: 160px; }
   .intake-brand-name { display: none; }
+}
+
+/* ==========================================================================
+   PRODUCTS GALLERY
+   ========================================================================== */
+.gallery { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+/* 3-card layout: single row on desktop, stacked on mobile */
+@media (min-width: 900px) { .gallery-3 { grid-template-columns: repeat(3, 1fr); } }
+
+.product {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color .25s var(--ease), background-color .25s var(--ease), transform .4s var(--ease);
+}
+.product:hover { border-color: var(--line-3); background: var(--bg-3); transform: translateY(-4px); }
+.product.is-featured { border-color: var(--line-3); }
+
+.product-frame {
+  position: relative; aspect-ratio: 16 / 6; background: var(--bg);
+  border-bottom: 1px solid var(--line); display: grid; place-items: center; overflow: hidden;
+}
+.product-frame::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(var(--line-2) 1px, transparent 1px), linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+  background-size: 34px 34px; opacity: 0.55;
+  -webkit-mask-image: radial-gradient(72% 82% at 50% 50%, #000, transparent 80%);
+  mask-image: radial-gradient(72% 82% at 50% 50%, #000, transparent 80%);
+}
+.product-emblem {
+  position: relative; z-index: 1; width: 56px; height: 56px; display: grid; place-items: center;
+  border-radius: var(--r); background: var(--bg-2); border: 1px solid var(--line); color: var(--ink);
+  will-change: transform;
+}
+.product-emblem svg { width: 26px; height: 26px; }
+
+.product-badge {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--bg); background: var(--white); padding: 5px 11px; border-radius: var(--r-pill);
+}
+
+.product-body { display: flex; flex-direction: column; flex: 1; padding: 24px 24px 26px; }
+.product-name { font-size: 1.26rem; letter-spacing: -0.02em; color: var(--white); }
+.product-desc { margin-top: 10px; color: var(--soft); font-size: 0.97rem; }
+
+/* Feature list inside product card */
+.product-feats { margin-top: 18px; display: grid; gap: 8px; flex: 1; }
+.product-feats li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.94rem; color: var(--ink); }
+.product-feats .ck { width: 18px; height: 18px; flex-shrink: 0; display: grid; place-items: center; color: var(--soft); margin-top: 2px; }
+.product-feats .ck svg { width: 13px; height: 13px; }
+
+.product-foot { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line-2); display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; }
+.product-price { font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--white); line-height: 1; margin: 0; }
+.product-fee { font-family: var(--mono); font-size: 11px; color: var(--faint); margin: 5px 0 0; letter-spacing: 0.02em; }
+.product-foot .btn { flex-shrink: 0; }
+.products-note { text-align: center; margin-top: 28px; font-size: 0.95rem; color: var(--faint); }
+
+/* Stagger for 3 cards */
+.gallery .product:nth-child(2) { --reveal-delay: 90ms; }
+.gallery .product:nth-child(3) { --reveal-delay: 180ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .product:hover { transform: none; }
+  .product-emblem { will-change: auto; }
 }
