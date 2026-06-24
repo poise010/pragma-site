@@ -264,11 +264,12 @@ strong { font-weight: 600; color: var(--ink); }
 .plan-badge { position: absolute; top: 24px; right: 24px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; color: var(--bg); background: var(--white); padding: 5px 11px; border-radius: var(--r-pill); text-transform: uppercase; }
 .plan-name { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; color: var(--faint); margin-bottom: 16px; text-transform: uppercase; }
 .plan h3 { font-size: 1.4rem; letter-spacing: -0.02em; color: var(--white); }
+.plan.feature h3 { padding-right: 115px; }
 .plan-price { margin-top: 16px; font-family: var(--display); font-weight: 700; font-size: 2.5rem; letter-spacing: -0.03em; color: var(--white); line-height: 1; }
 .plan-price .from { font-family: var(--sans); font-size: 0.82rem; font-weight: 500; color: var(--faint); display: block; margin-bottom: 7px; letter-spacing: 0; text-transform: none; }
 .plan-desc { margin-top: 16px; color: var(--soft); font-size: 0.97rem; }
-.plan-list { margin-top: 26px; display: grid; gap: 13px; flex: 1; }
-.plan-list li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; font-size: 0.97rem; color: var(--ink); }
+.plan-list { margin-top: 20px; display: grid; gap: 8px; flex: 1; }
+.plan-list li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.95rem; color: var(--ink); }
 .plan-list .ck { width: 20px; height: 20px; flex-shrink: 0; display: grid; place-items: center; color: var(--ink); margin-top: 1px; }
 .plan-list .ck svg { width: 16px; height: 16px; }
 .plan .btn { margin-top: 30px; width: 100%; }
