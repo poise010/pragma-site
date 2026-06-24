@@ -480,11 +480,21 @@
     </div>
   </footer>
 
-  <!-- Demo chat widget (self-contained, bottom-right). Swap for a real provider
-       by removing chat.js below and pasting the provider snippet here. -->
   <script src="script.js"></script>
-  <script src="chat.js"></script>
   <script src="intake.js"></script>
+  <script type="text/javascript">
+    (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '6a3be962e6d47fa28bf50c83' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production'
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
   <script type="module" src="motion.js"></script>
 </body>
 </html>
