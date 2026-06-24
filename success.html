@@ -22,6 +22,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
   <div class="fx-bg" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
@@ -63,14 +64,14 @@
             <path d="M14 24l7 7 13-13" stroke="#f3f4f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1>Welcome to Winograd.</h1>
+        <h1 data-reveal data-split>Welcome to Winograd.</h1>
         <p>Your project is confirmed. We have everything we need to get started. Here is what happens next.</p>
       </div>
     </section>
 
     <section class="section" id="next-steps">
       <div class="container" style="max-width:780px">
-        <div class="process-grid" style="margin-bottom: clamp(48px,7vw,72px)">
+        <div class="process-grid" data-skew style="margin-bottom: clamp(48px,7vw,72px)">
           <div class="step" data-reveal>
             <span class="step-n">01</span>
             <div>
@@ -95,7 +96,7 @@
         </div>
 
         <div class="success-cta" data-reveal>
-          <div class="success-cta-inner">
+          <div class="success-cta-inner" data-skew>
             <p class="success-cta-label">Book your kickoff call now</p>
             <h2 class="success-cta-heading">Let us get the clock running.</h2>
             <p class="success-cta-body">Picking a time now means we can start your project immediately rather than waiting on a reply. It takes 30 seconds.</p>

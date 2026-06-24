@@ -821,4 +821,186 @@ main, .footer { position: relative; z-index: 1; }
     opacity: 1 !important; transform: none !important;
     filter: none !important; clip-path: none !important;
   }
+  .hero-canvas { display: none; }
+}
+
+/* ==========================================================================
+   ============================================================================
+   MAXIMAL CINEMATIC LAYER  -  full tech-forward motion system
+   ----------------------------------------------------------------------------
+   Driven by motion.js. Everything here is GPU-only (transform/opacity/filter),
+   monochrome (white luminance on the near-black canvas), and fully neutralised
+   under prefers-reduced-motion / no-JS. Layout, palette, type, copy unchanged.
+   ============================================================================
+   ========================================================================== */
+
+/* ---- Scroll progress bar (top hairline that fills with page progress) ----- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: calc(var(--z-nav) + 1); pointer-events: none; background: transparent;
+}
+.scroll-progress > span {
+  display: block; height: 100%; width: 100%;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.35), #ffffff);
+  box-shadow: 0 0 14px rgba(255,255,255,0.4);
+  will-change: transform;
+}
+
+/* ---- Scroll-spy nav underline -------------------------------------------- */
+.nav-links a { position: relative; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 1.5px;
+  background: var(--white); border-radius: 2px;
+  transform: scaleX(0); transform-origin: 0 50%; opacity: 0.85;
+  transition: transform .32s var(--ease-out);
+}
+.nav-links a:hover::after,
+.nav-links a.is-current::after { transform: scaleX(1); }
+
+/* ---- Velocity skew: blocks lean into scroll momentum, spring back to 0 ---- */
+[data-skew] { transform-origin: center top; will-change: transform; }
+
+/* ---- Directional reveal variants (base reveal already defined above) ------ */
+.js [data-reveal="left"]  { transform: translate3d(-36px, 0, 0); }
+.js [data-reveal="right"] { transform: translate3d(36px, 0, 0); }
+.js [data-reveal="zoom"]  { transform: translate3d(0, 18px, 0) scale(0.93); }
+.js [data-reveal="left"].is-visible,
+.js [data-reveal="right"].is-visible,
+.js [data-reveal="zoom"].is-visible { transform: none; }
+
+/* ==========================================================================
+   HERO  -  canvas constellation + pointer 3D tilt
+   ========================================================================== */
+.hero { overflow: hidden; }
+.hero-grid { z-index: 1; }
+.hero-visual { perspective: 1000px; }
+.hero-stage { transform-style: preserve-3d; will-change: transform; }
+
+/* Lightweight node field behind the hero visual. Masked so it concentrates
+   on the right (visual) side and never competes with the headline. */
+.hero-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.12) 32%, #000 64%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.12) 32%, #000 64%);
+}
+
+/* ---- Split-text headline: word-by-word masked rise (any [data-split]) ------ */
+.js [data-reveal].is-split { opacity: 1; transform: none; filter: none; }
+.is-split .word {
+  display: inline-block; overflow: hidden; vertical-align: top;
+  padding-bottom: 0.14em; margin-bottom: -0.14em;
+}
+.is-split .word-i {
+  display: inline-block; transform: translateY(118%);
+  transition: transform .92s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+.is-split.is-visible .word-i { transform: none; }
+
+/* ==========================================================================
+   MAGNETIC BUTTONS  -  primary CTAs trail toward the cursor
+   ========================================================================== */
+.btn.is-magnetic {
+  transform: translate(var(--bx, 0px), var(--by, 0px));
+  transition:
+    transform .4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color .18s var(--ease-out),
+    border-color     .18s var(--ease-out),
+    color            .18s var(--ease-out);
+}
+.btn.is-magnetic:active { transform: translate(var(--bx, 0px), var(--by, 0px)) scale(0.97); }
+
+/* ==========================================================================
+   3D TILT + SPOTLIGHT CARDS  -  services & pricing
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  .bento, .plans { perspective: 1200px; }
+  .svc.is-tilt, .plan.is-tilt {
+    transform-style: preserve-3d;
+    transition:
+      transform   .2s var(--ease-out),
+      border-color .25s var(--ease-out),
+      background-color .25s var(--ease-out),
+      box-shadow  .5s var(--ease-out);
+  }
+  .svc.is-tilt:hover, .plan.is-tilt:hover {
+    transform: translateY(-6px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    box-shadow: 0 40px 70px -36px rgba(0,0,0,0.92);
+  }
+  /* feature card gets a moving sheen that follows the spotlight */
+  .svc.feature::before, .plan.feature::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    z-index: 0; opacity: 0; transition: opacity .35s var(--ease-out);
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.07), transparent 55%);
+  }
+  .svc.feature:hover::before, .plan.feature:hover::before { opacity: 1; }
+  .svc.feature > *, .plan.feature > * { position: relative; z-index: 1; }
+}
+
+/* ==========================================================================
+   INDUSTRIES MARQUEE  -  seamless, velocity-reactive (static when idle/no-JS)
+   ========================================================================== */
+.marquee { overflow: hidden; }
+.marquee-track { display: flex; align-items: center; }
+.marquee-group {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 14px 36px; flex: 1 0 100%;
+}
+.marquee-group span {
+  display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+  color: var(--soft); font-weight: 500; font-size: 15.5px;
+}
+.marquee-group svg { width: 18px; height: 18px; color: var(--faint); }
+.marquee-dup { display: none; }
+/* live (motion.js) -> single line, both groups, JS-driven translate */
+.marquee.is-live .marquee-track { width: max-content; will-change: transform; }
+.marquee.is-live .marquee-group { flex-wrap: nowrap; justify-content: flex-start; flex: 0 0 auto; padding-right: 36px; }
+.marquee.is-live .marquee-dup { display: flex; }
+/* soft edge fade so items enter / leave gracefully */
+.industries .marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* ==========================================================================
+   METRICS BAND  -  count-up offering facts (honest, not fabricated results)
+   ========================================================================== */
+.metrics { border-bottom: 1px solid var(--line-2); padding: clamp(44px, 6vw, 68px) 0; }
+.metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 20px; }
+.metric { text-align: center; position: relative; }
+.metric-num {
+  font-family: var(--display); font-weight: 700; line-height: 1;
+  font-size: clamp(2.4rem, 5.2vw, 3.5rem); letter-spacing: -0.03em; color: var(--white);
+  display: inline-flex; align-items: baseline; justify-content: center;
+}
+.metric-num .metric-unit, .metric-num .metric-pre { font-size: 0.46em; font-weight: 600; color: var(--soft); }
+.metric-num .metric-pre { margin-right: 1px; }
+.metric-label { margin-top: 13px; font-size: 0.92rem; color: var(--faint); line-height: 1.4; max-width: 22ch; margin-left: auto; margin-right: auto; }
+.metrics-grid > [data-reveal]:nth-child(2) { --reveal-delay: 80ms; }
+.metrics-grid > [data-reveal]:nth-child(3) { --reveal-delay: 160ms; }
+.metrics-grid > [data-reveal]:nth-child(4) { --reveal-delay: 240ms; }
+@media (min-width: 760px) {
+  .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+  .metric + .metric::before {
+    content: ""; position: absolute; left: -10px; top: 50%; transform: translateY(-50%);
+    width: 1px; height: 56px; background: var(--line-2);
+  }
+}
+
+/* ==========================================================================
+   Reduced motion  -  neutralise the entire cinematic layer
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+  .hero-canvas { display: none; }
+  .nav-links a::after { transition: none; }
+  [data-skew] { transform: none !important; will-change: auto; }
+  .is-split .word-i { transform: none; transition: none; }
+  .marquee.is-live .marquee-track { transform: none !important; }
+  .marquee.is-live .marquee-group { flex-wrap: wrap; justify-content: center; flex: 1 0 100%; }
+  .marquee.is-live .marquee-dup { display: none; }
+  .svc.is-tilt:hover, .plan.is-tilt:hover { transform: translateY(-4px); }
+  .btn.is-magnetic { transform: none !important; }
 }
