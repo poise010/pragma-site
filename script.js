@@ -85,7 +85,7 @@
       if (!target) return;
       e.preventDefault();
       var top = target.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
-      window.scrollTo({ top: top, behavior: "auto" });
+      window.scrollTo({ top: top, behavior: reduced ? "auto" : "smooth" });
     });
   });
 
