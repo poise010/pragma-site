@@ -263,9 +263,9 @@ strong { font-weight: 600; color: var(--ink); }
    PRICING
    ========================================================================== */
 .plans { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: stretch; }
-.plan { display: flex; flex-direction: column; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 32px; }
+.plan { display: flex; flex-direction: column; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 24px; }
 .plan.feature { border-color: var(--line-3); background: var(--bg-3); position: relative; }
-.plan-badge { position: absolute; top: 24px; right: 24px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; color: var(--bg); background: var(--white); padding: 5px 11px; border-radius: var(--r-pill); text-transform: uppercase; }
+.plan-badge { position: absolute; top: 20px; right: 20px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.05em; color: var(--bg); background: var(--white); padding: 5px 11px; border-radius: var(--r-pill); text-transform: uppercase; }
 .plan-name { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.03em; color: var(--faint); margin-bottom: 16px; text-transform: uppercase; }
 .plan h3 { font-size: 1.4rem; letter-spacing: -0.02em; color: var(--white); }
 .plan.feature h3 { padding-right: 115px; }
@@ -276,7 +276,7 @@ strong { font-weight: 600; color: var(--ink); }
 .plan-list li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 0.95rem; color: var(--ink); }
 .plan-list .ck { width: 20px; height: 20px; flex-shrink: 0; display: grid; place-items: center; color: var(--ink); margin-top: 1px; }
 .plan-list .ck svg { width: 16px; height: 16px; }
-.plan .btn { margin-top: 30px; width: 100%; }
+.plan .btn { margin-top: 20px; width: 100%; }
 .plans-note { text-align: center; margin-top: 28px; font-size: 0.95rem; color: var(--faint); }
 .plan-price .per { font-family: var(--sans); font-size: 0.92rem; font-weight: 500; color: var(--faint); letter-spacing: 0; }
 
@@ -850,7 +850,7 @@ main, .footer { position: relative; z-index: 1; }
     background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.07), transparent 55%);
   }
   .svc.feature:hover::before, .plan.feature:hover::before { opacity: 1; }
-  .svc.feature > *, .plan.feature > * { position: relative; z-index: 1; }
+  .svc.feature > *:not(.plan-badge), .plan.feature > *:not(.plan-badge) { position: relative; z-index: 1; }
 }
 
 /* Industries marquee */
