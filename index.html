@@ -177,12 +177,8 @@
             <h3>AI Voice Agent</h3>
             <p>A real voice agent you can actually talk to out loud, just like a phone call. Try it out — just turn on your mic.</p>
 
-            <!-- Orb is injected here only after the visitor clicks. See voice.js. -->
-            <div class="voice-stage" id="voiceStage" hidden>
-              <div class="voice-orb-wrap" id="voiceOrbWrap"></div>
-              <button type="button" class="btn btn-ghost btn-sm voice-close" id="voiceClose">Close demo</button>
-            </div>
-
+            <!-- The orb itself is Retell's official widget (loaded by the script
+                 near </body>). It opens on click; see voice.js. -->
             <p class="voice-msg" id="voiceFallback" hidden>
               Voice demo unavailable right now — <a href="#" data-book>book a free call instead</a>.
             </p>
@@ -470,6 +466,24 @@
   <script src="script.js"></script>
   <script src="chat.js"></script>
   <script src="intake.js"></script>
+
+  <!-- Retell official voice widget. Runs on our own origin, so the browser's
+       native microphone prompt works and there is no white cross-origin
+       iframe - it renders Retell's own themeable orb. Voice-only (no chat
+       agent id is passed). data-auto-open="false" keeps it closed on load so
+       it never auto-connects; voice.js opens it from the card's "Try it out"
+       button (gated by a client-side 24h launch limit) and hides this widget's
+       default corner launcher so there is a single, consistent entry point.
+       NOTE: data-voice-public-key must be your Retell PUBLIC key (Dashboard ->
+       Settings -> API Keys). Replace it if the value below is not that. -->
+  <script id="retell-widget" src="https://dashboard.retellai.com/retell-widget-v2.js" type="module"
+    data-voice-public-key="f9dd6f728161dd549a34cd8514410e23"
+    data-voice-agent-id="agent_8a3b6a08363c83a942ae4c1ab7"
+    data-title="Winograd Voice Agent"
+    data-bot-name="Winograd"
+    data-color="#ffffff"
+    data-auto-open="false"></script>
+
   <script src="voice.js"></script>
 </body>
 </html>
