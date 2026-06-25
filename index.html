@@ -155,24 +155,60 @@
           <p class="section-lead">One team for your website, your search presence, and the systems that capture and convert every lead.</p>
         </div>
 
-        <div class="bento">
-          <article class="svc feature" data-reveal>
-            <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 8h20M6 21h12M12 17v4"/></svg></span>
-            <h3>Modern website design</h3>
-            <p>A fast, mobile-first website built around your customers and your goals, designed to turn visitors into booked appointments. Clear, credible, and easy to update.</p>
-            <div class="svc-tags"><span>Custom design</span><span>Mobile-first</span><span>Copywriting</span><span>Fast loading</span></div>
+        <!-- Part A: two live demos visitors can try right on the page -->
+        <div class="demos">
+          <article class="demo-card" data-reveal>
+            <span class="demo-badge"><span class="demo-dot" aria-hidden="true"></span> Live demo</span>
+            <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+            <h3>AI Chat Assistant</h3>
+            <p>The same assistant we build for clients — trained on a business, ready to answer questions and book appointments around the clock. Try it right here on the page.</p>
+            <div class="demo-actions">
+              <button type="button" class="btn btn-primary" data-open-chat>Try it out</button>
+            </div>
+            <div class="demo-cta-row">
+              <a href="#" class="btn btn-ghost btn-sm" data-book>Book a free 15-min consult</a>
+              <a href="STRIPE_LINK_PLACEHOLDER_CHAT" class="btn btn-ghost btn-sm">Inquire / Buy</a>
+            </div>
           </article>
 
+          <article class="demo-card" data-reveal id="voiceDemo">
+            <span class="demo-badge"><span class="demo-dot" aria-hidden="true"></span> Live demo</span>
+            <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0M12 17v4M8 21h8"/></svg></span>
+            <h3>AI Voice Agent</h3>
+            <p>A real voice agent you can actually talk to out loud, just like a phone call. Try it out — just turn on your mic.</p>
+
+            <!-- Orb is injected here only after the visitor clicks. See voice.js. -->
+            <div class="voice-stage" id="voiceStage" hidden>
+              <div class="voice-orb-wrap" id="voiceOrbWrap"></div>
+              <button type="button" class="btn btn-ghost btn-sm voice-close" id="voiceClose">Close demo</button>
+            </div>
+
+            <p class="voice-msg" id="voiceFallback" hidden>
+              Voice demo unavailable right now — <a href="#" data-book>book a free call instead</a>.
+            </p>
+            <p class="voice-msg" id="voiceLimit" hidden>
+              You've reached the demo limit for today. <a href="#" data-book>Book a free consultation to talk to us directly</a>.
+            </p>
+
+            <div class="demo-actions">
+              <button type="button" class="btn btn-primary" id="voiceTry">Try it out — just turn on your mic</button>
+            </div>
+            <div class="demo-cta-row">
+              <a href="#" class="btn btn-ghost btn-sm" data-book>Book a free 15-min consult</a>
+              <a href="STRIPE_LINK_PLACEHOLDER_VOICE" class="btn btn-ghost btn-sm">Inquire / Buy</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Part B: supporting services -->
+        <div class="addons-head" data-reveal>
+          <h3 class="addons-title">Plus everything else your site needs.</h3>
+        </div>
+        <div class="bento bento-support">
           <article class="svc" data-reveal>
             <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
             <h3>SEO</h3>
             <p>Get found by the people already searching for what you offer, right in your local area.</p>
-          </article>
-
-          <article class="svc" data-reveal>
-            <span class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
-            <h3>Custom AI chat assistant</h3>
-            <p>A chat assistant trained on your business that answers questions and books appointments around the clock.</p>
           </article>
 
           <article class="svc" data-reveal>
@@ -434,5 +470,6 @@
   <script src="script.js"></script>
   <script src="chat.js"></script>
   <script src="intake.js"></script>
+  <script src="voice.js"></script>
 </body>
 </html>
