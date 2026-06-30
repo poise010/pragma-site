@@ -6,14 +6,15 @@
      1. Set STRIPE_URL below to your Stripe payment link.
      2. Any element with data-intake opens this modal automatically.
 
-   After submission, form data is saved to localStorage and the client
-   is redirected to Stripe. On the success page, a summary is shown.
+   After submission, form data is sent to Netlify Forms, saved locally as a
+   short client-side fallback, and the client is redirected to Stripe or the
+   success page.
    ========================================================================== */
 (function () {
   "use strict";
 
   /* ── Config ──────────────────────────────────────────────────────────────*/
-  var STRIPE_URL = "#"; // Replace: https://buy.stripe.com/YOUR_LINK
+  var STRIPE_URL = window.WINOGRAD_STRIPE_URL || "#"; // Replace with your public Stripe payment link when available.
 
   var INDUSTRIES = [
     "Dental practice",
@@ -349,14 +350,23 @@
   }
 
   /* ── Submit ──────────────────────────────────────────────────────────────*/
+  function encodeForm(data) {
+    return Object.keys(data).map(function (key) {
+      return encodeURIComponent(key) + "=" + encodeURIComponent(data[key]);
+    }).join("&");
+  }
+
   function submitForm() {
     var nextBtn = qs("#intakeNext", overlay);
     if (nextBtn) {
       nextBtn.disabled = true;
-      nextBtn.innerHTML = '<span class="intake-spinner"></span> Preparing checkout...';
+      nextBtn.innerHTML = '<span class="intake-spinner"></span> Submitting...';
     }
 
-    var data = {};
+    var data = {
+      "form-name": "project-intake",
+      "bot-field": ""
+    };
     qsa("input[name], select[name], textarea[name]", overlay).forEach(function (f) {
       if (f.type === "checkbox") {
         if (!data[f.name]) data[f.name] = [];
@@ -369,11 +379,24 @@
       }
     });
 
+    Object.keys(data).forEach(function (key) {
+      if (Array.isArray(data[key])) data[key] = data[key].join(", ");
+    });
+
     try { localStorage.setItem("winogradIntake", JSON.stringify(data)); } catch (e) {}
 
-    setTimeout(function () {
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeForm(data)
+    }).then(function (response) {
+      if (!response.ok) throw new Error("Form submission failed.");
+      return response;
+    }).catch(function (err) {
+      console.warn("Winograd: intake form submission could not be sent.", err);
+    }).finally(function () {
       window.location.href = (STRIPE_URL && STRIPE_URL !== "#") ? STRIPE_URL : "success.html";
-    }, 1400);
+    });
   }
 
   /* ── Open / Close ────────────────────────────────────────────────────────*/
